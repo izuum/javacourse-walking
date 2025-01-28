@@ -10,7 +10,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int a = scanner.nextInt();
         int b = scanner.nextInt();
-        scanner.close(
+        scanner.close();
         if(a % 2 == 0 || b % 3 == 0){
             System.out.println(a == b);
         }
