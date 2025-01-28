@@ -1,4 +1,4 @@
-package day3.Task4;
+package day6.Task2;
 
 import java.util.Scanner;
 
@@ -11,17 +11,23 @@ public class Main {
         int a = scanner.nextInt();
         int b = scanner.nextInt();
         scanner.close();
-        if(a % 2 == 0 || b % 3 == 0){
+
+        if (a % 2 == 0 || b % 3 == 0) {
             System.out.println(a == b);
         }
-
-        if(a % 2 == 0 && a % 3 == 0){
-            double c = Math.pow(a, b);
-            if(c > INT_MAX){
-                System.out.println("Результат выражения слишком большой");
-            } else {
-                System.out.println((int)c);
-            }
+        if (a % 2 == 0 && a % 3 == 0) {
+            checkMax(a, b);
         }
+
+    }
+
+    public static void checkMax(int a, int b) {
+        double c = Math.pow(a, b);
+        if (c > INT_MAX) {
+            System.out.println("Результат выражения слишком большой");
+        } else {
+            System.out.println((int) c);
+        }
+
     }
 }
