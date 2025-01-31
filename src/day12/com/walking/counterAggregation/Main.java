@@ -1,6 +1,7 @@
 package day12.com.walking.counterAggregation;
 
 import day12.com.walking.counterAggregation.model.Counter;
+import day12.com.walking.counterAggregation.service.CounterService;
 
 public class Main {
     public static final String GAS_COUNTER_NAME = "Газ";
@@ -12,6 +13,22 @@ public class Main {
     public static final String KW_H_UNIT = "кВт/ч";
 
     public static void main(String[] args) {
+
+        Counter gasCounter = new Counter(GAS_COUNTER_NAME, M_3_UNIT);
+        Counter coldWaterCounter = new Counter(COLD_WATER_COUNTER_NAME, M_3_UNIT);
+        Counter hotWaterCounter = new Counter(HOT_WATER_COUNTER_NAME, M_3_UNIT);
+
+        Counter electricCounter = new Counter(ELECTRIC_COUNTER_NAME, KW_H_UNIT);
+        electricCounter.setValue(15);
+
+        CounterService counterService = new CounterService(gasCounter, coldWaterCounter);
+        counterService.addCounter(hotWaterCounter);
+        counterService.addCounter(electricCounter);
+
+        counterService.increaseCounter(GAS_COUNTER_NAME, 100);
+        counterService.increaseCounter(coldWaterCounter, 10);
+
+        printCounterValues(counterService.getAllCounters());
 
     }
 
