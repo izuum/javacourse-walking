@@ -16,7 +16,7 @@ public class Main {
         scanner.close();
 
         Message message;
-        
+
         switch (a){
             case "Hi":
                 message = new Hi();
