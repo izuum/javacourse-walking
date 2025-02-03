@@ -1,6 +1,6 @@
-package day16.Task3.model.impl;
+package day16.Task3.Task3_1.model.impl;
 
-import day16.Task3.model.Animal;
+import day16.Task3.Task3_1.model.Animal;
 
 public class Cow implements Animal {
     private String name = "Cow";
