@@ -1,9 +1,9 @@
-package day16.Task3;
+package day16.Task3.Task3_1;
 
-import day16.Task3.model.Animal;
-import day16.Task3.model.impl.Cat;
-import day16.Task3.model.impl.Cow;
-import day16.Task3.model.impl.Dog;
+import day16.Task3.Task3_1.model.Animal;
+import day16.Task3.Task3_1.model.impl.Cat;
+import day16.Task3.Task3_1.model.impl.Cow;
+import day16.Task3.Task3_1.model.impl.Dog;
 
 public class Main {
     public static void main(String[] args) {
