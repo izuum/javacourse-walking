@@ -24,9 +24,6 @@ public class Main {
         }
     }
 
-
-
-
     private static File[] initFiles() {
         File file1 = new File("Dogovor", 5, TXT);
         File file2 = new File("Music", 50, FLAC);
@@ -38,7 +35,6 @@ public class Main {
         File file8 = new File("Favourite photo", 43, JPG);
         File file9 = new File("Document", 11, TXT);
         File file10 = new File("My dog", 30, JPG);
-
 
         return new File[]{file1, file2, file3, file4, file5, file6, file7, file8, file9, file10};
     }
