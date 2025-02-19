@@ -11,7 +11,7 @@ public class Main {
     }
 
     private static boolean numberValidation(String number){
-        Pattern pattern = Pattern.compile("(\\+7) (\\(\\d{3}\\)) \\d{3}\\-\\d{2}\\-\\d{2}");
+        Pattern pattern = Pattern.compile("^\\+7 \\(\\d{3}\\) \\d{3}-\\d{2}-\\d{2}$");
         Matcher matcher = pattern.matcher(number);
 
         return matcher.matches();
