@@ -3,7 +3,6 @@ package day32.Task3.model;
 import java.util.Objects;
 
 public class Car {
-
     private final String number;
 
     private final int year;
@@ -52,13 +51,11 @@ public class Car {
         if (this == o) {
             return true;
         }
-
         if (o == null || !getClass().equals(o.getClass())) {
             return false;
         }
 
         Car car = (Car) o;
-
         return year == car.year && Objects.equals(number, car.number);
     }
 
