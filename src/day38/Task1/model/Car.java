@@ -41,7 +41,7 @@ public class Car {
                 number: %s
                 year: %d
                 color: %s
-                actualTechnicalInspection^ %s
+                actualTechnicalInspection: %s
                 """.formatted(
                         identifier.getNumber(), identifier.getYear(), color,
                 actualTechnicalInspection ? "actual" : "not actual");
