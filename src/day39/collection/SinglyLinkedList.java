@@ -2,6 +2,8 @@ package day39.collection;
 
 import java.util.*;
 
+//Реализация односвязного списка
+
 public class SinglyLinkedList<E> implements Collection<E> {
     private Node<E> top;
     private int size;
