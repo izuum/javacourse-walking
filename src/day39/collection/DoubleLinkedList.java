@@ -2,33 +2,46 @@ package day39.collection;
 
 import java.util.*;
 
-//Реализация односвязного списка
-
-public class SinglyLinkedList<E> implements Collection<E> {
+public class DoubleLinkedList<E> implements Collection<E> {
     private Node<E> top;
+    private Node<E> last;
+
     private int size;
 
-    public SinglyLinkedList() {
+    public DoubleLinkedList() {
+
     }
 
-    public SinglyLinkedList(E top) {
-        this.top = new Node<>(top);
+    public DoubleLinkedList(E e) {
+        this.top = new Node<>(e);
+        this.last = top;
         size++;
     }
 
     public void reverse() {
-        Node<E> prev = null;
-        while (top != null) {
-            Node<E> next = top.next;
-            top.next = prev;
-            prev = top;
-            top = next;
+        if (size <= 1) {
+            return;
         }
-        top = prev;
+
+        last = top;
+
+        Node<E> current = top;
+        Node<E> temp = null;
+        while (current != null) {
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+            current = current.prev;
+        }
+        top = temp.prev;
     }
 
     public E getTop() {
         return top.value;
+    }
+
+    public E getLast() {
+        return last.value;
     }
 
     @Override
@@ -49,6 +62,7 @@ public class SinglyLinkedList<E> implements Collection<E> {
             if (Objects.equals(o, temp.value)) {
                 return true;
             }
+
             temp = temp.next;
         }
         return false;
@@ -56,7 +70,7 @@ public class SinglyLinkedList<E> implements Collection<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new SinglyLinkedListIterator<>(top);
+        return new DoubleLinkedListIterator<>(top);
     }
 
     @Override
@@ -68,17 +82,46 @@ public class SinglyLinkedList<E> implements Collection<E> {
             arr[i] = temp.value;
             temp = temp.next;
         }
+
         return arr;
     }
 
     @Override
-    public <T> T[] toArray(T[] a){
+    public <T> T[] toArray(T[] a) {
         return (T[]) Arrays.copyOf(toArray(), size, a.getClass());
     }
 
     @Override
     public boolean add(E e) {
-        top = new Node<>(e, top);
+        return addLast(e);
+    }
+
+    public boolean addLast(E e) {
+        Node<E> l = last;
+        Node<E> node = new Node<>(l, e, null);
+        last = node;
+
+        if (l == null) {
+            top = node;
+        } else {
+            l.next = node;
+        }
+        size++;
+
+        return true;
+    }
+
+    public boolean addTop(E e) {
+        Node<E> t = top;
+        Node<E> node = new Node(null, e, t);
+        top = node;
+
+        if (t == null) {
+            last = node;
+        } else {
+            t.prev = node;
+        }
+
         size++;
         return true;
     }
@@ -91,19 +134,50 @@ public class SinglyLinkedList<E> implements Collection<E> {
             top = top.next;
             size--;
 
+            if (top == null) {
+                last = null;
+            }
+
             return true;
         }
-
         while (temp.next != null) {
             if (Objects.equals(o, temp.next.value)) {
                 temp.next = temp.next.next;
                 size--;
+
+                if (temp.next == null) {
+                    last = null;
+                }
+
                 return true;
             }
-
             temp = temp.next;
         }
         return false;
+    }
+
+    public void removeTop() {
+        if (size == 0) {
+            return;
+        }
+        top = top.next;
+        size--;
+
+        if (top == null) {
+            last = null;
+        }
+    }
+
+    public void removeLast() {
+        if (size == 0) {
+            return;
+        }
+        last = last.prev;
+        size--;
+
+        if (last == null) {
+            top = null;
+        }
     }
 
     @Override
@@ -132,22 +206,25 @@ public class SinglyLinkedList<E> implements Collection<E> {
             if (remove(e)) {
                 result = true;
             }
+
         }
         return result;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        while (!c.contains(top.value)) {
+        while(!c.contains(top.value)){
             top = top.next;
             size--;
         }
+
         Node<E> temp = top;
-        while (temp.next != null) {
-            if (!c.contains(temp.next.value)) {
+        while(temp.next != null){
+            if(!c.contains(temp.next.value)){
                 temp.next = temp.next.next;
                 size--;
             }
+
             temp = temp.next;
         }
         return size > 0;
@@ -161,22 +238,24 @@ public class SinglyLinkedList<E> implements Collection<E> {
 
     private static class Node<E> {
         private final E value;
+        private Node<E> prev;
         private Node<E> next;
 
-        private Node(E value) {
+        public Node(E value) {
             this.value = value;
         }
 
-        private Node(E value, Node<E> next) {
+        public Node(Node<E> prev, E value, Node<E> next) {
+            this.prev = prev;
             this.value = value;
             this.next = next;
         }
     }
 
-    private static class SinglyLinkedListIterator<E> implements Iterator<E> {
+    private static class DoubleLinkedListIterator<E> implements Iterator<E> {
         private Node<E> current;
 
-        public SinglyLinkedListIterator(Node<E> top) {
+        public DoubleLinkedListIterator(Node<E> top) {
             current = top;
         }
 
@@ -190,6 +269,7 @@ public class SinglyLinkedList<E> implements Collection<E> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
+
             E result = current.value;
             current = current.next;
 
